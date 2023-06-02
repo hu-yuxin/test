@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cooper.mapper.LoginMapper">
+
+    <select id="selectLogin" resultType="student">
+
+
+       select * from student where username=#{username} and password=#{password}
+    </select>
+
+    <!--<sql id="key">
+        <trim suffixOverrides=",">
+            <if test="username != null and username !=''">
+                username,
+            </if>
+            <if test="password != null and password !=''">
+                password,
+            </if>
+            <if test="name != null and name !=''">
+                name,
+            </if>
+            <if test="gender != null and gender !=''">
+                gender,
+            </if>
+            <if test="age != null and age !=''">
+                age,
+            </if>
+            <if test="grade != null and grade !=''">
+                grade,
+            </if>
+            <if test="major != null and major !=''">
+                major,
+            </if>
+            <if test="phone != null and phone !=''">
+                phone,
+            </if>
+        </trim>
+    </sql>
+    <sql id="value">
+        <trim suffixOverrides=",">
+            <if test="username != null and username !=''">
+                #{username},
+            </if>
+            <if test="password != null and password !=''">
+                #{password},
+            </if>
+            <if test="name != null and name !=''">
+                #{name},
+            </if>
+            <if test="gender != null and gender !=''">
+                #{gender},
+            </if>
+            <if test="age != null and age !=''">
+                #{age},
+            </if>
+            <if test="grade != null and grade !=''">
+                #{grade},
+            </if>
+            <if test="major != null and major !=''">
+                #{major},
+            </if>
+            <if test="phone != null and phone !=''">
+                #{phone},
+            </if>
+        </trim>
+    </sql>
+    <insert id="selectRegister" parameterType="integer">
+        insert into student(<include refid="key"/>)  values(<include refid="value"/>)
+    </insert>-->
+
+    <select id="selectLoginTea" resultType="teacher">
+        select * from teachers where username=#{username} and password=#{password}
+    </select>
+
+    <select id="selectLogincom" resultType="company">
+        select * from company where username=#{username} and password=#{password}
+    </select>
+
+    <select id="selectByUsername" resultType="student">
+        select * from student where username = #{username}
+    </select>
+
+    <insert id="selectRegister" >
+        insert into student(username,password,name,gender,age,grade,major,phone)values(#{username},#{password},#{name},#{gender},#{age},#{grade},#{major},#{phone})
+    </insert>
+
+    <select id="selectByUsernameTea" resultType="teacher">
+        select * from teachers where username = #{username}
+    </select>
+
+    <insert id="selectRegisterTea" >
+        insert into teachers(username,password,name,gender,age,school,college,phone,description)values(#{username},#{password},#{name},#{gender},#{age},#{school},#{college},#{phone},#{description})
+    </insert>
+
+    <select id="selectByUsernameCom" resultType="company">
+        select * from company where username = #{username}
+    </select>
+
+    <insert id="selectRegisterCom" >
+        insert into company(name,username,password,descripe,phone)values(#{name},#{username},#{password},#{descripe},#{phone})
+    </insert>
+</mapper>

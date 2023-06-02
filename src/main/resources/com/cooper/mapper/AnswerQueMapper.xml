@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cooper.mapper.AnswerQueMapper">
+    <sql id="column">
+        id,tea_name,subject,date_time,class_room,type
+    </sql>
+    <sql id="column2">
+        tea_name,subject,date_time,class_room,type
+    </sql>
+
+    <select id="selectAll" resultType="AnswerQue">
+        select <include refid="column"></include>
+        from answer_que
+    </select>
+
+    <select id="selectByManyConditions" resultType="AnswerQue">
+        select <include refid="column"></include>
+        from answer_que
+        <where>
+            <if test="teaName != null and teaName != ''">
+                and tea_name = #{teaName}
+            </if>
+            <if test="subject != null and subject != ''">
+                and subject = #{subject}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAnswerQueMapper" resultType="AnswerQue">
+        select <include refid="column"></include>
+        from answer_que where id = #{id}
+    </select>
+
+    <insert id="insertOneAnswerQueMapper" useGeneratedKeys="true" keyProperty="id">
+        insert into answer_que(<include refid="column2"></include>) values
+        (#{teaName},#{subject},#{dateTime},#{classRoom},#{type})
+    </insert>
+
+    <delete id="deleteOne">
+        delete from answer_que where id = #{id}
+    </delete>
+
+    <delete id="deleteMore">
+        delete from answer_que where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="updateOne">
+        update answer_que
+        <set>
+            <if test="teaName != null and teaName != ''">
+                tea_name = #{teaName},
+            </if>
+            <if test="subject != null and subject != ''">
+                subject = #{subject},
+            </if>
+            <if test="dateTime != null and dateTime != ''">
+                date_time = #{dateTime},
+            </if>
+            <if test="classRoom != null and classRoom != ''">
+                class_room = #{classRoom},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

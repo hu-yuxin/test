@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cooper.mapper.ResumeMapper">
+    <select id="getAllResumes" resultType="ResumeDelivery">
+        select * from resume;
+    </select>
+
+    <select id="getResumeById" resultType="ResumeDelivery">
+        select * from resume where id = #{id};
+    </select>
+
+    <update id="approveResume" >
+        UPDATE resume SET status = 1 WHERE id = #{id};
+    </update>
+
+    <update id="rejectResume">
+        UPDATE resume SET status = 2 WHERE id = #{id};
+    </update>
+
+</mapper>
